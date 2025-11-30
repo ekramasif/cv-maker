@@ -2,22 +2,20 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="border-b border-gray-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                CV Maker
-              </span>
+              <span className="text-xl font-bold">CV Maker</span>
             </div>
             <div className="flex items-center gap-4">
               <Link
                 href="/create"
-                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
+                className="px-6 py-2 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors"
               >
-                Get Started
+                Create CV
               </Link>
             </div>
           </div>
@@ -25,225 +23,249 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Create Your Professional CV
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              In Minutes
-            </span>
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div className="border-b-2 border-gray-900 pb-8 mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4 uppercase tracking-tight">
+            Professional CV Builder
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Build a stunning, LaTeX-styled resume with our intuitive CV maker.
-            Perfect for professionals, academics, and job seekers.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/create"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg rounded-lg font-semibold hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1"
-            >
-              Start Building Your CV
-            </Link>
-            <a
-              href="#features"
-              className="px-8 py-4 bg-white text-gray-700 text-lg rounded-lg font-semibold border-2 border-gray-200 hover:border-blue-500 transition-all duration-200"
-            >
-              Learn More
-            </a>
-          </div>
-        </div>
-
-        {/* Preview Image/Demo */}
-        <div className="mt-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur-3xl opacity-20"></div>
-          <div className="relative bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
-            <div className="aspect-video bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-6xl mb-4">📄</div>
-                <p className="text-gray-600 font-medium">Professional CV Preview</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Everything You Need
-          </h2>
-          <p className="text-xl text-gray-600">
-            Professional features for creating the perfect CV
+          <p className="text-xl text-gray-700 leading-relaxed max-w-3xl">
+            Create a professional curriculum vitae using a LaTeX-inspired template.
+            Designed for academics, researchers, and professionals who value clear,
+            structured documentation of their qualifications and experience.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Feature 1 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">📝</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              LaTeX-Style Design
-            </h3>
-            <p className="text-gray-600">
-              Professional typography and formatting inspired by LaTeX templates used in top institutions.
-            </p>
-          </div>
-
-          {/* Feature 2 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">👁️</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Live Preview
-            </h3>
-            <p className="text-gray-600">
-              See your CV update in real-time as you type. What you see is what you get.
-            </p>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">📄</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              PDF Export
-            </h3>
-            <p className="text-gray-600">
-              Export your CV as a professional PDF with perfect formatting for printing and sharing.
-            </p>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">💾</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Save & Resume
-            </h3>
-            <p className="text-gray-600">
-              Save your CV as JSON and continue editing later. Never lose your progress.
-            </p>
-          </div>
-
-          {/* Feature 5 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">🎯</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              ATS-Friendly
-            </h3>
-            <p className="text-gray-600">
-              Clean structure optimized for Applicant Tracking Systems used by recruiters.
-            </p>
-          </div>
-
-          {/* Feature 6 */}
-          <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <span className="text-2xl">📦</span>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Comprehensive Sections
-            </h3>
-            <p className="text-gray-600">
-              Include experience, education, skills, projects, certifications, awards, and languages.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              How It Works
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div>
+            <h2 className="text-lg font-bold uppercase mb-3 border-b border-gray-900 pb-1">
+              Key Features
             </h2>
-            <p className="text-xl text-gray-600">
-              Create your professional CV in 3 simple steps
-            </p>
+            <ul className="space-y-2 text-gray-700">
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>LaTeX-inspired typography and formatting</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Real-time preview as you type</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Export to PDF with perfect formatting</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Save and resume editing anytime</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>ATS-compatible clean structure</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>No registration required</span>
+              </li>
+            </ul>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+          <div>
+            <h2 className="text-lg font-bold uppercase mb-3 border-b border-gray-900 pb-1">
+              Included Sections
+            </h2>
+            <ul className="space-y-2 text-gray-700">
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Personal Information & Contact Details</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Education & Academic Qualifications</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Professional Experience</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Research Projects & Publications</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Technical Skills & Competencies</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Certifications & Awards</span>
+              </li>
+              <li className="flex gap-2">
+                <span>•</span>
+                <span>Languages</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-900 pt-8">
+          <Link
+            href="/create"
+            className="inline-block px-8 py-3 bg-gray-900 text-white font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors"
+          >
+            Start Building Your CV
+          </Link>
+        </div>
+      </section>
+
+      {/* Design Philosophy */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold uppercase mb-6 border-b-2 border-gray-900 pb-2">
+            Design Philosophy
+          </h2>
+
+          <div className="space-y-6 text-gray-700">
+            <div>
+              <h3 className="font-bold text-gray-900 mb-2">LaTeX-Inspired Formatting</h3>
+              <p className="leading-relaxed">
+                Our CV builder uses serif typography (Georgia, Times New Roman) and structured
+                layouts inspired by professional LaTeX document templates. This provides a
+                traditional, academic appearance that is widely recognized and respected in
+                professional settings.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-900 mb-2">Content-First Approach</h3>
+              <p className="leading-relaxed">
+                The design prioritizes clarity and readability. Clean section separators,
+                consistent spacing, and logical hierarchy ensure that your qualifications
+                and experience are presented in the most effective manner.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-900 mb-2">Professional Standards</h3>
+              <p className="leading-relaxed">
+                Following conventions used in academic and technical resumes, the template
+                includes proper date formatting, institutional affiliations, and structured
+                presentation of achievements. Suitable for applications to universities,
+                research institutions, and professional organizations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to Use */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-2xl font-bold uppercase mb-6 border-b-2 border-gray-900 pb-2">
+          How to Use
+        </h2>
+
+        <div className="space-y-6">
+          <div>
+            <div className="flex gap-4 items-start">
+              <div className="w-8 h-8 border-2 border-gray-900 flex items-center justify-center font-bold flex-shrink-0">
                 1
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Fill In Your Information
-              </h3>
-              <p className="text-gray-600">
-                Use our intuitive forms to add your personal details, experience, education, and skills.
-              </p>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Enter Your Information</h3>
+                <p className="text-gray-700">
+                  Fill in your personal details, education, experience, and skills using the
+                  structured forms. Each section can be expanded or collapsed as needed.
+                </p>
+              </div>
             </div>
+          </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+          <div>
+            <div className="flex gap-4 items-start">
+              <div className="w-8 h-8 border-2 border-gray-900 flex items-center justify-center font-bold flex-shrink-0">
                 2
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Customize & Preview
-              </h3>
-              <p className="text-gray-600">
-                See your CV take shape with real-time preview. Add or remove sections as needed.
-              </p>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Review Live Preview</h3>
+                <p className="text-gray-700">
+                  View your CV in real-time as you make changes. The preview shows exactly
+                  how your final document will appear when printed or exported to PDF.
+                </p>
+              </div>
             </div>
+          </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+          <div>
+            <div className="flex gap-4 items-start">
+              <div className="w-8 h-8 border-2 border-gray-900 flex items-center justify-center font-bold flex-shrink-0">
                 3
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Download & Share
-              </h3>
-              <p className="text-gray-600">
-                Export your CV as a professional PDF and start applying to your dream jobs.
-              </p>
+              <div>
+                <h3 className="font-bold text-gray-900 mb-1">Export or Save</h3>
+                <p className="text-gray-700">
+                  Export your CV to PDF using your browser's print function, or save your
+                  data as JSON to continue editing later. No account registration required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technical Details */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold uppercase mb-6 border-b-2 border-gray-900 pb-2">
+            Technical Details
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">Built With</h3>
+              <ul className="space-y-1 text-gray-700">
+                <li>Next.js 15 (React Framework)</li>
+                <li>TypeScript (Type Safety)</li>
+                <li>Tailwind CSS (Styling)</li>
+                <li>PDF Export via Browser Print</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3">Browser Compatibility</h3>
+              <ul className="space-y-1 text-gray-700">
+                <li>Chrome, Firefox, Safari, Edge</li>
+                <li>Modern browsers (2020+)</li>
+                <li>Desktop and mobile devices</li>
+                <li>JavaScript required</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-2xl overflow-hidden">
-          <div className="px-8 py-16 text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Ready to Create Your Professional CV?
-            </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of professionals who have created stunning CVs with our tool
-            </p>
-            <Link
-              href="/create"
-              className="inline-block px-8 py-4 bg-white text-blue-600 text-lg rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 transform hover:-translate-y-1 shadow-lg"
-            >
-              Start Building Now - It&apos;s Free
-            </Link>
-          </div>
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="border-2 border-gray-900 p-12 text-center">
+          <h2 className="text-3xl font-bold uppercase mb-4">
+            Ready to Create Your CV?
+          </h2>
+          <p className="text-gray-700 mb-8 text-lg max-w-2xl mx-auto">
+            Start building your professional curriculum vitae now. No registration,
+            no payment, no unnecessary features—just a clean, effective CV builder.
+          </p>
+          <Link
+            href="/create"
+            className="inline-block px-12 py-4 bg-gray-900 text-white font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors"
+          >
+            Create Your CV
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              CV Maker
-            </div>
-            <p className="text-sm">
-              Built with Next.js, TypeScript, and Tailwind CSS
-            </p>
-            <p className="text-sm mt-2">
-              © 2024 CV Maker. All rights reserved.
-            </p>
+      <footer className="border-t-2 border-gray-900 mt-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-sm text-gray-600">
+            <p className="font-bold text-gray-900 mb-2">CV Maker</p>
+            <p>Professional CV Builder • LaTeX-Inspired Design</p>
+            <p className="mt-2">Built with Next.js, TypeScript, and Tailwind CSS</p>
           </div>
         </div>
       </footer>
