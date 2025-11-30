@@ -7,7 +7,7 @@ interface CVPreviewProps {
 }
 
 export default function CVPreview({ data }: CVPreviewProps) {
-  const { personalInfo, experiences, education, skills, projects } = data;
+  const { personalInfo, experiences, education, skills, projects, certifications, awards, languages } = data;
 
   const formatDate = (date: string) => {
     if (!date) return '';
@@ -25,151 +25,127 @@ export default function CVPreview({ data }: CVPreviewProps) {
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto latex-cv" id="cv-preview">
-      <div className="p-12 space-y-3">
-        {/* Three-Part Header */}
-        <div className="grid grid-cols-3 gap-4 pb-2 border-b-2 border-black">
-          {/* Left: Logo */}
-          <div className="flex items-start">
-            {personalInfo.logo && (
-              <img
-                src={personalInfo.logo}
-                alt="Institute Logo"
-                className="h-16 w-16 object-contain"
-              />
-            )}
-          </div>
-
-          {/* Center: Name and Details */}
-          <div className="text-center flex flex-col justify-center">
-            <h1 className="text-xl font-bold mb-0.5">
-              {personalInfo.fullName || 'YOUR NAME'}
+    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto professional-cv" id="cv-preview">
+      {/* Header Section with Background */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
+        <div className="flex items-start gap-6">
+          {personalInfo.logo && (
+            <img
+              src={personalInfo.logo}
+              alt="Profile"
+              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+            />
+          )}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-2">
+              {personalInfo.fullName || 'Your Name'}
             </h1>
-            {personalInfo.rollNo && (
-              <div className="text-xs">{personalInfo.rollNo}</div>
-            )}
-            {personalInfo.program && (
-              <div className="text-xs">{personalInfo.program}</div>
-            )}
-            {personalInfo.institute && (
-              <div className="text-xs font-medium">{personalInfo.institute}</div>
-            )}
-          </div>
-
-          {/* Right: Contact */}
-          <div className="text-right text-xs flex flex-col justify-center space-y-0.5">
-            {personalInfo.phone && (
-              <div className="flex items-center justify-end gap-1">
-                <span className="font-medium">Phone:</span> {personalInfo.phone}
+            {(personalInfo.program || personalInfo.institute) && (
+              <div className="text-xl mb-3 opacity-95">
+                {personalInfo.program}
+                {personalInfo.program && personalInfo.institute && ' | '}
+                {personalInfo.institute}
               </div>
             )}
-            {personalInfo.email && (
-              <div className="flex items-center justify-end gap-1">
-                <span className="font-medium">Email:</span>{' '}
-                <a href={`mailto:${personalInfo.email}`} className="text-black hover:underline">
-                  {personalInfo.email}
-                </a>
-              </div>
-            )}
-            {personalInfo.linkedin && (
-              <div className="flex items-center justify-end gap-1">
-                <span className="font-medium">LinkedIn:</span>{' '}
-                <a href={personalInfo.linkedin} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
-                  {personalInfo.linkedin.replace('https://', '').replace('http://', '').split('/').slice(0, 2).join('/')}
-                </a>
-              </div>
-            )}
-            {personalInfo.github && (
-              <div className="flex items-center justify-end gap-1">
-                <span className="font-medium">GitHub:</span>{' '}
-                <a href={personalInfo.github} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
-                  {personalInfo.github.replace('https://', '').replace('http://', '').split('/').slice(0, 2).join('/')}
-                </a>
-              </div>
-            )}
-            {personalInfo.website && (
-              <div className="flex items-center justify-end gap-1">
-                <span className="font-medium">Website:</span>{' '}
-                <a href={personalInfo.website} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
-                  {personalInfo.website.replace('https://', '').replace('http://', '')}
-                </a>
-              </div>
-            )}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
+              {personalInfo.email && (
+                <div>📧 {personalInfo.email}</div>
+              )}
+              {personalInfo.phone && (
+                <div>📞 {personalInfo.phone}</div>
+              )}
+              {personalInfo.location && (
+                <div>📍 {personalInfo.location}</div>
+              )}
+              {personalInfo.linkedin && (
+                <div>
+                  🔗{' '}
+                  <a href={personalInfo.linkedin} className="hover:underline">
+                    LinkedIn
+                  </a>
+                </div>
+              )}
+              {personalInfo.github && (
+                <div>
+                  💻{' '}
+                  <a href={personalInfo.github} className="hover:underline">
+                    GitHub
+                  </a>
+                </div>
+              )}
+              {personalInfo.website && (
+                <div>
+                  🌐{' '}
+                  <a href={personalInfo.website} className="hover:underline">
+                    Website
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Education Section */}
-        {education.length > 0 && (
+      <div className="p-8 space-y-6">
+        {/* Professional Summary */}
+        {personalInfo.summary && (
           <div>
-            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
-              EDUCATION
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Professional Summary
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              {personalInfo.summary}
+            </p>
+          </div>
+        )}
+
+        {/* Core Competencies / Skills */}
+        {skills.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Core Competencies
             </h2>
             <div className="space-y-2">
-              {education.map((edu) => (
-                <div key={edu.id} className="text-sm">
-                  <div className="flex justify-between items-baseline">
-                    <div className="font-bold">
-                      {edu.institution}
-                    </div>
-                    <div className="text-right">
-                      {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-baseline mt-0.5">
-                    <div className="italic">
-                      {edu.degree}{edu.field && ` in ${edu.field}`}
-                    </div>
-                    <div>
-                      {edu.gpa && `CGPA: ${edu.gpa}`}
-                    </div>
-                  </div>
-                  {edu.location && (
-                    <div className="text-gray-700">{edu.location}</div>
-                  )}
+              {Object.entries(groupedSkills).map(([category, skillsList]) => (
+                <div key={category} className="flex gap-2">
+                  <span className="font-semibold text-gray-800 min-w-[150px]">
+                    {category}:
+                  </span>
+                  <span className="text-gray-700 flex-1">
+                    {skillsList.join(' • ')}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Professional Summary */}
-        {personalInfo.summary && (
-          <div>
-            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
-              PROFESSIONAL SUMMARY
-            </h2>
-            <p className="text-sm leading-relaxed text-justify">
-              {personalInfo.summary}
-            </p>
-          </div>
-        )}
-
-        {/* Experience Section */}
+        {/* Professional Experience */}
         {experiences.length > 0 && (
           <div>
-            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
-              WORK EXPERIENCE
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Professional Experience
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {experiences.map((exp) => (
-                <div key={exp.id} className="text-sm">
-                  <div className="flex justify-between items-baseline">
-                    <div className="font-bold">
+                <div key={exp.id}>
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {exp.position}
+                    </h3>
+                    <span className="text-sm text-gray-600 font-medium">
+                      {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <div className="text-lg font-semibold text-blue-600">
                       {exp.company}
                     </div>
-                    <div className="text-right">
-                      {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-baseline mt-0.5">
-                    <div className="italic">
-                      {exp.position}
-                    </div>
-                    <div className="text-gray-700">
+                    <div className="text-sm text-gray-600">
                       {exp.location}
                     </div>
                   </div>
-                  <div className="mt-1 text-justify whitespace-pre-line leading-relaxed">
+                  <div className="text-gray-700 whitespace-pre-line leading-relaxed">
                     {exp.description}
                   </div>
                 </div>
@@ -178,35 +154,124 @@ export default function CVPreview({ data }: CVPreviewProps) {
           </div>
         )}
 
-        {/* Projects Section */}
+        {/* Projects */}
         {projects.length > 0 && (
           <div>
-            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
-              PROJECTS
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Key Projects
             </h2>
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {projects.map((project) => (
-                <div key={project.id} className="text-sm">
+                <div key={project.id}>
                   <div className="flex justify-between items-baseline">
-                    <div className="font-bold">
+                    <h3 className="text-lg font-bold text-gray-900">
                       {project.name}
-                    </div>
+                    </h3>
                     {project.link && (
                       <a
                         href={project.link}
-                        className="text-black hover:underline text-xs"
+                        className="text-sm text-blue-600 hover:underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        [Link]
+                        View Project →
                       </a>
                     )}
                   </div>
-                  <div className="italic text-xs mt-0.5">
-                    Tools & Technologies: {project.technologies}
+                  <div className="text-sm text-gray-600 mb-1">
+                    <span className="font-medium">Technologies:</span> {project.technologies}
                   </div>
-                  <div className="mt-1 text-justify leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed">
                     {project.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Education */}
+        {education.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Education
+            </h2>
+            <div className="space-y-3">
+              {education.map((edu) => (
+                <div key={edu.id}>
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {edu.degree}{edu.field && ` in ${edu.field}`}
+                    </h3>
+                    <span className="text-sm text-gray-600 font-medium">
+                      {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-baseline">
+                    <div className="text-base font-semibold text-blue-600">
+                      {edu.institution}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {edu.gpa && `GPA: ${edu.gpa}`}
+                    </div>
+                  </div>
+                  {edu.location && (
+                    <div className="text-sm text-gray-600">{edu.location}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Certifications */}
+        {certifications.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Certifications
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {certifications.map((cert) => (
+                <div key={cert.id} className="border-l-4 border-blue-500 pl-3">
+                  <div className="font-bold text-gray-900">{cert.name}</div>
+                  <div className="text-sm text-gray-700">{cert.issuer}</div>
+                  <div className="text-sm text-gray-600">
+                    {formatDate(cert.date)}
+                    {cert.credentialId && ` • ID: ${cert.credentialId}`}
+                  </div>
+                  {cert.link && (
+                    <a
+                      href={cert.link}
+                      className="text-xs text-blue-600 hover:underline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Verify Credential →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Awards & Achievements */}
+        {awards.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Awards & Achievements
+            </h2>
+            <div className="space-y-2">
+              {awards.map((award) => (
+                <div key={award.id} className="flex gap-3">
+                  <div className="text-blue-600 text-xl">🏆</div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-bold text-gray-900">{award.title}</span>
+                      <span className="text-sm text-gray-600">{formatDate(award.date)}</span>
+                    </div>
+                    <div className="text-sm text-gray-700">{award.issuer}</div>
+                    <div className="text-sm text-gray-600">{award.description}</div>
                   </div>
                 </div>
               ))}
@@ -214,17 +279,17 @@ export default function CVPreview({ data }: CVPreviewProps) {
           </div>
         )}
 
-        {/* Technical Skills Section */}
-        {skills.length > 0 && (
+        {/* Languages */}
+        {languages.length > 0 && (
           <div>
-            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
-              TECHNICAL SKILLS
+            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
+              Languages
             </h2>
-            <div className="space-y-1 text-sm">
-              {Object.entries(groupedSkills).map(([category, skillsList]) => (
-                <div key={category} className="flex">
-                  <span className="font-bold min-w-[120px]">{category}:</span>
-                  <span className="flex-1">{skillsList.join(', ')}</span>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {languages.map((lang) => (
+                <div key={lang.id} className="text-center p-2 bg-blue-50 rounded-lg">
+                  <div className="font-semibold text-gray-900">{lang.name}</div>
+                  <div className="text-sm text-gray-600">{lang.proficiency}</div>
                 </div>
               ))}
             </div>

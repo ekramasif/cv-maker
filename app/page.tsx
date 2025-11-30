@@ -6,6 +6,9 @@ import ExperienceForm from '@/components/ExperienceForm';
 import EducationForm from '@/components/EducationForm';
 import SkillsForm from '@/components/SkillsForm';
 import ProjectsForm from '@/components/ProjectsForm';
+import CertificationsForm from '@/components/CertificationsForm';
+import AwardsForm from '@/components/AwardsForm';
+import LanguagesForm from '@/components/LanguagesForm';
 import CVPreview from '@/components/CVPreview';
 import { CVData, initialCVData } from '@/types/cv';
 
@@ -50,6 +53,9 @@ export default function Home() {
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
+    { id: 'certifications', label: 'Certifications' },
+    { id: 'awards', label: 'Awards' },
+    { id: 'languages', label: 'Languages' },
   ];
 
   return (
@@ -151,6 +157,33 @@ export default function Home() {
                     projects={cvData.projects}
                     onChange={(projects) =>
                       setCVData({ ...cvData, projects })
+                    }
+                  />
+                )}
+
+                {activeTab === 'certifications' && (
+                  <CertificationsForm
+                    certifications={cvData.certifications}
+                    onChange={(certifications) =>
+                      setCVData({ ...cvData, certifications })
+                    }
+                  />
+                )}
+
+                {activeTab === 'awards' && (
+                  <AwardsForm
+                    awards={cvData.awards}
+                    onChange={(awards) =>
+                      setCVData({ ...cvData, awards })
+                    }
+                  />
+                )}
+
+                {activeTab === 'languages' && (
+                  <LanguagesForm
+                    languages={cvData.languages}
+                    onChange={(languages) =>
+                      setCVData({ ...cvData, languages })
                     }
                   />
                 )}

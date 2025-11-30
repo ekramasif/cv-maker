@@ -50,12 +50,38 @@ export interface Project {
   link?: string;
 }
 
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+  link?: string;
+}
+
+export interface Award {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  description: string;
+}
+
+export interface Language {
+  id: string;
+  name: string;
+  proficiency: string;
+}
+
 export interface CVData {
   personalInfo: PersonalInfo;
   experiences: Experience[];
   education: Education[];
   skills: Skill[];
   projects: Project[];
+  certifications: Certification[];
+  awards: Award[];
+  languages: Language[];
 }
 
 export const initialCVData: CVData = {
@@ -77,4 +103,7 @@ export const initialCVData: CVData = {
   education: [],
   skills: [],
   projects: [],
+  certifications: [],
+  awards: [],
+  languages: [],
 };
