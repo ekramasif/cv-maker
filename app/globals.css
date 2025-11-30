@@ -71,9 +71,4 @@ body {
   .professional-cv > div > div {
     page-break-inside: avoid;
   }
-
-  /* Print header with gradient background as solid */
-  .professional-cv .bg-gradient-to-r {
-    background: #2563eb !important;
-  }
 }
