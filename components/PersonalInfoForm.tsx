@@ -12,9 +12,36 @@ export default function PersonalInfoForm({ data, onChange }: PersonalInfoFormPro
     onChange({ ...data, [field]: value });
   };
 
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        handleChange('logo', result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-800">Personal Information</h2>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Institute Logo
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleLogoUpload}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {data.logo && (
+          <img src={data.logo} alt="Logo preview" className="mt-2 h-16 object-contain" />
+        )}
+      </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -26,6 +53,47 @@ export default function PersonalInfoForm({ data, onChange }: PersonalInfoFormPro
           onChange={(e) => handleChange('fullName', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="John Doe"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Roll Number
+          </label>
+          <input
+            type="text"
+            value={data.rollNo || ''}
+            onChange={(e) => handleChange('rollNo', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="2021CS001"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Program
+          </label>
+          <input
+            type="text"
+            value={data.program || ''}
+            onChange={(e) => handleChange('program', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="B.Tech in Computer Science"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Institute Name
+        </label>
+        <input
+          type="text"
+          value={data.institute || ''}
+          onChange={(e) => handleChange('institute', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Indian Institute of Technology"
         />
       </div>
 
@@ -86,16 +154,29 @@ export default function PersonalInfoForm({ data, onChange }: PersonalInfoFormPro
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Website
+            GitHub
           </label>
           <input
             type="url"
-            value={data.website || ''}
-            onChange={(e) => handleChange('website', e.target.value)}
+            value={data.github || ''}
+            onChange={(e) => handleChange('github', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="johndoe.com"
+            placeholder="github.com/johndoe"
           />
         </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Website
+        </label>
+        <input
+          type="url"
+          value={data.website || ''}
+          onChange={(e) => handleChange('website', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="johndoe.com"
+        />
       </div>
 
       <div>

@@ -20,6 +20,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* LaTeX-style CV Typography */
+.latex-cv {
+  font-family: 'Georgia', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman No9 L', serif;
+  color: #000000;
+  line-height: 1.5;
+}
+
+.latex-cv a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.latex-cv a:hover {
+  text-decoration: underline;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -32,11 +48,27 @@ body {
   }
 
   @page {
-    margin: 0;
+    margin: 0.5in;
+    size: letter;
   }
 
   body {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+
+  .latex-cv {
+    box-shadow: none !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure clean borders in print */
+  .latex-cv h2 {
+    page-break-after: avoid;
+  }
+
+  .latex-cv > div > div {
+    page-break-inside: avoid;
   }
 }

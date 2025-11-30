@@ -25,69 +25,138 @@ export default function CVPreview({ data }: CVPreviewProps) {
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto" id="cv-preview">
-      <div className="p-8 space-y-6">
-        {/* Personal Info Header */}
-        <div className="border-b-2 border-gray-800 pb-4">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {personalInfo.fullName || 'Your Name'}
-          </h1>
-          <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-            {personalInfo.email && <span>{personalInfo.email}</span>}
-            {personalInfo.phone && <span>•</span>}
-            {personalInfo.phone && <span>{personalInfo.phone}</span>}
-            {personalInfo.location && <span>•</span>}
-            {personalInfo.location && <span>{personalInfo.location}</span>}
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm text-gray-600 mt-1">
-            {personalInfo.linkedin && (
-              <a href={personalInfo.linkedin} className="text-blue-600 hover:underline">
-                LinkedIn
-              </a>
+    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto latex-cv" id="cv-preview">
+      <div className="p-8 space-y-4">
+        {/* Three-Part Header */}
+        <div className="grid grid-cols-3 gap-4 pb-3 border-b-2 border-black">
+          {/* Left: Logo */}
+          <div className="flex items-start">
+            {personalInfo.logo && (
+              <img
+                src={personalInfo.logo}
+                alt="Institute Logo"
+                className="h-16 w-16 object-contain"
+              />
             )}
-            {personalInfo.website && personalInfo.linkedin && <span>•</span>}
-            {personalInfo.website && (
-              <a href={personalInfo.website} className="text-blue-600 hover:underline">
-                Website
-              </a>
+          </div>
+
+          {/* Center: Name and Details */}
+          <div className="text-center flex flex-col justify-center">
+            <h1 className="text-2xl font-bold mb-1">
+              {personalInfo.fullName || 'YOUR NAME'}
+            </h1>
+            {personalInfo.rollNo && (
+              <div className="text-sm">{personalInfo.rollNo}</div>
+            )}
+            {personalInfo.program && (
+              <div className="text-sm">{personalInfo.program}</div>
+            )}
+            {personalInfo.institute && (
+              <div className="text-sm font-medium">{personalInfo.institute}</div>
+            )}
+          </div>
+
+          {/* Right: Contact */}
+          <div className="text-right text-sm flex flex-col justify-center space-y-0.5">
+            {personalInfo.phone && (
+              <div>📞 {personalInfo.phone}</div>
+            )}
+            {personalInfo.email && (
+              <div>
+                ✉ <a href={`mailto:${personalInfo.email}`} className="text-black hover:underline">
+                  {personalInfo.email}
+                </a>
+              </div>
+            )}
+            {personalInfo.linkedin && (
+              <div>
+                🔗 <a href={personalInfo.linkedin} className="text-black hover:underline">
+                  LinkedIn
+                </a>
+              </div>
+            )}
+            {personalInfo.github && (
+              <div>
+                💻 <a href={personalInfo.github} className="text-black hover:underline">
+                  GitHub
+                </a>
+              </div>
             )}
           </div>
         </div>
 
-        {/* Summary */}
+        {/* Education Section */}
+        {education.length > 0 && (
+          <div>
+            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
+              EDUCATION
+            </h2>
+            <div className="space-y-2">
+              {education.map((edu) => (
+                <div key={edu.id} className="text-sm">
+                  <div className="flex justify-between items-baseline">
+                    <div className="font-bold">
+                      {edu.institution}
+                    </div>
+                    <div className="text-right">
+                      {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-baseline mt-0.5">
+                    <div className="italic">
+                      {edu.degree}{edu.field && ` in ${edu.field}`}
+                    </div>
+                    <div>
+                      {edu.gpa && `CGPA: ${edu.gpa}`}
+                    </div>
+                  </div>
+                  {edu.location && (
+                    <div className="text-gray-700">{edu.location}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Professional Summary */}
         {personalInfo.summary && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2 uppercase tracking-wide">
-              Professional Summary
+            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
+              PROFESSIONAL SUMMARY
             </h2>
-            <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+            <p className="text-sm leading-relaxed text-justify">
               {personalInfo.summary}
             </p>
           </div>
         )}
 
-        {/* Experience */}
+        {/* Experience Section */}
         {experiences.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide border-b border-gray-300 pb-1">
-              Work Experience
+            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
+              WORK EXPERIENCE
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {experiences.map((exp) => (
-                <div key={exp.id}>
-                  <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {exp.position}
-                    </h3>
-                    <span className="text-sm text-gray-600">
+                <div key={exp.id} className="text-sm">
+                  <div className="flex justify-between items-baseline">
+                    <div className="font-bold">
+                      {exp.company}
+                    </div>
+                    <div className="text-right">
                       {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
-                    </span>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-700 mb-2">
-                    <span className="font-medium">{exp.company}</span>
-                    {exp.location && <span> • {exp.location}</span>}
+                  <div className="flex justify-between items-baseline mt-0.5">
+                    <div className="italic">
+                      {exp.position}
+                    </div>
+                    <div className="text-gray-700">
+                      {exp.location}
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+                  <div className="mt-1 text-justify whitespace-pre-line leading-relaxed">
                     {exp.description}
                   </div>
                 </div>
@@ -96,82 +165,53 @@ export default function CVPreview({ data }: CVPreviewProps) {
           </div>
         )}
 
-        {/* Education */}
-        {education.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide border-b border-gray-300 pb-1">
-              Education
-            </h2>
-            <div className="space-y-3">
-              {education.map((edu) => (
-                <div key={edu.id}>
-                  <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {edu.institution}
-                    </h3>
-                    <span className="text-sm text-gray-600">
-                      {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
-                    </span>
-                  </div>
-                  <div className="text-sm text-gray-700">
-                    <span className="font-medium">{edu.degree}</span>
-                    {edu.field && <span> in {edu.field}</span>}
-                    {edu.location && <span> • {edu.location}</span>}
-                    {edu.gpa && <span> • GPA: {edu.gpa}</span>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Projects */}
+        {/* Projects Section */}
         {projects.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide border-b border-gray-300 pb-1">
-              Projects
+            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
+              PROJECTS
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {projects.map((project) => (
-                <div key={project.id}>
-                  <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="text-base font-semibold text-gray-900">
+                <div key={project.id} className="text-sm">
+                  <div className="flex justify-between items-baseline">
+                    <div className="font-bold">
                       {project.name}
-                    </h3>
+                    </div>
                     {project.link && (
                       <a
                         href={project.link}
-                        className="text-sm text-blue-600 hover:underline"
+                        className="text-black hover:underline text-xs"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Link
+                        [Link]
                       </a>
                     )}
                   </div>
-                  <div className="text-sm text-gray-700 mb-1">
-                    <span className="font-medium">Technologies:</span> {project.technologies}
+                  <div className="italic text-xs mt-0.5">
+                    Tools & Technologies: {project.technologies}
                   </div>
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                  <div className="mt-1 text-justify leading-relaxed">
                     {project.description}
-                  </p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Skills */}
+        {/* Technical Skills Section */}
         {skills.length > 0 && (
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-3 uppercase tracking-wide border-b border-gray-300 pb-1">
-              Skills
+            <h2 className="text-base font-bold mb-2 border-b border-black pb-0.5 tracking-wide">
+              TECHNICAL SKILLS
             </h2>
-            <div className="space-y-2">
+            <div className="space-y-1 text-sm">
               {Object.entries(groupedSkills).map(([category, skillsList]) => (
-                <div key={category} className="text-sm">
-                  <span className="font-semibold text-gray-900">{category}:</span>{' '}
-                  <span className="text-gray-700">{skillsList.join(', ')}</span>
+                <div key={category} className="flex">
+                  <span className="font-bold min-w-[120px]">{category}:</span>
+                  <span className="flex-1">{skillsList.join(', ')}</span>
                 </div>
               ))}
             </div>

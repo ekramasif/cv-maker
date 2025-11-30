@@ -1,10 +1,15 @@
 export interface PersonalInfo {
   fullName: string;
+  rollNo?: string;
+  program?: string;
+  institute?: string;
   email: string;
   phone: string;
   location: string;
   linkedin?: string;
+  github?: string;
   website?: string;
+  logo?: string;
   summary: string;
 }
 
@@ -56,11 +61,16 @@ export interface CVData {
 export const initialCVData: CVData = {
   personalInfo: {
     fullName: '',
+    rollNo: '',
+    program: '',
+    institute: '',
     email: '',
     phone: '',
     location: '',
     linkedin: '',
+    github: '',
     website: '',
+    logo: '',
     summary: '',
   },
   experiences: [],
