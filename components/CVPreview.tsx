@@ -26,9 +26,9 @@ export default function CVPreview({ data }: CVPreviewProps) {
 
   return (
     <div className="bg-white shadow-lg max-w-[8.5in] mx-auto latex-cv" id="cv-preview">
-      <div className="p-8 space-y-4">
+      <div className="p-12 space-y-3">
         {/* Three-Part Header */}
-        <div className="grid grid-cols-3 gap-4 pb-3 border-b-2 border-black">
+        <div className="grid grid-cols-3 gap-4 pb-2 border-b-2 border-black">
           {/* Left: Logo */}
           <div className="flex items-start">
             {personalInfo.logo && (
@@ -42,43 +42,56 @@ export default function CVPreview({ data }: CVPreviewProps) {
 
           {/* Center: Name and Details */}
           <div className="text-center flex flex-col justify-center">
-            <h1 className="text-2xl font-bold mb-1">
+            <h1 className="text-xl font-bold mb-0.5">
               {personalInfo.fullName || 'YOUR NAME'}
             </h1>
             {personalInfo.rollNo && (
-              <div className="text-sm">{personalInfo.rollNo}</div>
+              <div className="text-xs">{personalInfo.rollNo}</div>
             )}
             {personalInfo.program && (
-              <div className="text-sm">{personalInfo.program}</div>
+              <div className="text-xs">{personalInfo.program}</div>
             )}
             {personalInfo.institute && (
-              <div className="text-sm font-medium">{personalInfo.institute}</div>
+              <div className="text-xs font-medium">{personalInfo.institute}</div>
             )}
           </div>
 
           {/* Right: Contact */}
-          <div className="text-right text-sm flex flex-col justify-center space-y-0.5">
+          <div className="text-right text-xs flex flex-col justify-center space-y-0.5">
             {personalInfo.phone && (
-              <div>📞 {personalInfo.phone}</div>
+              <div className="flex items-center justify-end gap-1">
+                <span className="font-medium">Phone:</span> {personalInfo.phone}
+              </div>
             )}
             {personalInfo.email && (
-              <div>
-                ✉ <a href={`mailto:${personalInfo.email}`} className="text-black hover:underline">
+              <div className="flex items-center justify-end gap-1">
+                <span className="font-medium">Email:</span>{' '}
+                <a href={`mailto:${personalInfo.email}`} className="text-black hover:underline">
                   {personalInfo.email}
                 </a>
               </div>
             )}
             {personalInfo.linkedin && (
-              <div>
-                🔗 <a href={personalInfo.linkedin} className="text-black hover:underline">
-                  LinkedIn
+              <div className="flex items-center justify-end gap-1">
+                <span className="font-medium">LinkedIn:</span>{' '}
+                <a href={personalInfo.linkedin} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.linkedin.replace('https://', '').replace('http://', '').split('/').slice(0, 2).join('/')}
                 </a>
               </div>
             )}
             {personalInfo.github && (
-              <div>
-                💻 <a href={personalInfo.github} className="text-black hover:underline">
-                  GitHub
+              <div className="flex items-center justify-end gap-1">
+                <span className="font-medium">GitHub:</span>{' '}
+                <a href={personalInfo.github} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.github.replace('https://', '').replace('http://', '').split('/').slice(0, 2).join('/')}
+                </a>
+              </div>
+            )}
+            {personalInfo.website && (
+              <div className="flex items-center justify-end gap-1">
+                <span className="font-medium">Website:</span>{' '}
+                <a href={personalInfo.website} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.website.replace('https://', '').replace('http://', '')}
                 </a>
               </div>
             )}
