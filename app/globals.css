@@ -20,20 +20,30 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Professional CV Typography */
-.professional-cv {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  color: #1f2937;
-  line-height: 1.6;
+/* LaTeX-style CV Typography */
+.latex-cv {
+  font-family: 'Georgia', 'Times New Roman', 'Liberation Serif', 'Nimbus Roman No9 L', serif;
+  color: #000000;
+  line-height: 1.4;
+  font-size: 11pt;
 }
 
-.professional-cv a {
-  color: inherit;
+.latex-cv a {
+  color: #000000;
   text-decoration: none;
 }
 
-.professional-cv a:hover {
+.latex-cv a:hover {
   text-decoration: underline;
+}
+
+/* Tighter spacing for LaTeX look */
+.latex-cv h1 {
+  letter-spacing: 0.05em;
+}
+
+.latex-cv h2 {
+  letter-spacing: 0.1em;
 }
 
 @layer utilities {
@@ -57,23 +67,18 @@ body {
     -webkit-print-color-adjust: exact;
   }
 
-  .professional-cv {
+  .latex-cv {
     box-shadow: none !important;
     max-width: none !important;
     margin: 0 !important;
   }
 
   /* Ensure clean borders in print */
-  .professional-cv h2 {
+  .latex-cv h2 {
     page-break-after: avoid;
   }
 
-  .professional-cv > div > div {
+  .latex-cv > div > div {
     page-break-inside: avoid;
-  }
-
-  /* Print header with gradient background as solid */
-  .professional-cv .bg-gradient-to-r {
-    background: #2563eb !important;
   }
 }

@@ -25,276 +25,261 @@ export default function CVPreview({ data }: CVPreviewProps) {
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto professional-cv" id="cv-preview">
-      {/* Header Section with Background */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
-        <div className="flex items-start gap-6">
-          {personalInfo.logo && (
-            <img
-              src={personalInfo.logo}
-              alt="Profile"
-              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-            />
-          )}
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold mb-2">
-              {personalInfo.fullName || 'Your Name'}
+    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto latex-cv" id="cv-preview">
+      <div className="px-12 py-10">
+        {/* Three-Column Header - LaTeX Style */}
+        <div className="grid grid-cols-[auto_1fr_auto] gap-6 mb-4">
+          {/* Left: Logo */}
+          <div className="flex items-center">
+            {personalInfo.logo && (
+              <img
+                src={personalInfo.logo}
+                alt="Logo"
+                className="w-16 h-16 object-contain"
+              />
+            )}
+          </div>
+
+          {/* Center: Name and Details */}
+          <div>
+            <h1 className="text-3xl font-bold mb-1">
+              {personalInfo.fullName?.toUpperCase() || 'YOUR NAME'}
             </h1>
-            {(personalInfo.program || personalInfo.institute) && (
-              <div className="text-xl mb-3 opacity-95">
-                {personalInfo.program}
-                {personalInfo.program && personalInfo.institute && ' | '}
-                {personalInfo.institute}
+            {personalInfo.program && (
+              <div className="text-sm mb-0.5">{personalInfo.program}</div>
+            )}
+            {personalInfo.institute && (
+              <div className="text-sm mb-0.5">{personalInfo.institute}</div>
+            )}
+            {personalInfo.location && (
+              <div className="text-sm">{personalInfo.location}</div>
+            )}
+          </div>
+
+          {/* Right: Contact Info with Icons */}
+          <div className="text-right text-sm space-y-0.5 flex flex-col justify-center">
+            {personalInfo.phone && (
+              <div>☎ {personalInfo.phone}</div>
+            )}
+            {personalInfo.email && (
+              <div>
+                ✉ <a href={`mailto:${personalInfo.email}`} className="hover:underline">
+                  {personalInfo.email}
+                </a>
               </div>
             )}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
-              {personalInfo.email && (
-                <div>📧 {personalInfo.email}</div>
-              )}
-              {personalInfo.phone && (
-                <div>📞 {personalInfo.phone}</div>
-              )}
-              {personalInfo.location && (
-                <div>📍 {personalInfo.location}</div>
-              )}
-              {personalInfo.linkedin && (
-                <div>
-                  🔗{' '}
-                  <a href={personalInfo.linkedin} className="hover:underline">
-                    LinkedIn
-                  </a>
-                </div>
-              )}
-              {personalInfo.github && (
-                <div>
-                  💻{' '}
-                  <a href={personalInfo.github} className="hover:underline">
-                    GitHub
-                  </a>
-                </div>
-              )}
-              {personalInfo.website && (
-                <div>
-                  🌐{' '}
-                  <a href={personalInfo.website} className="hover:underline">
-                    Website
-                  </a>
-                </div>
-              )}
-            </div>
+            {personalInfo.github && (
+              <div>
+                ⚙ <a href={personalInfo.github} className="hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.github.replace('https://github.com/', '')}
+                </a>
+              </div>
+            )}
+            {personalInfo.linkedin && (
+              <div>
+                in <a href={personalInfo.linkedin} className="hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.linkedin.replace('https://linkedin.com/in/', '').replace('https://www.linkedin.com/in/', '')}
+                </a>
+              </div>
+            )}
           </div>
         </div>
-      </div>
 
-      <div className="p-8 space-y-6">
-        {/* Professional Summary */}
-        {personalInfo.summary && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Professional Summary
-            </h2>
-            <p className="text-gray-700 leading-relaxed">
-              {personalInfo.summary}
-            </p>
-          </div>
-        )}
+        {/* Divider line after header */}
+        <div className="border-t border-black my-3"></div>
 
-        {/* Core Competencies / Skills */}
-        {skills.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Core Competencies
-            </h2>
-            <div className="space-y-2">
-              {Object.entries(groupedSkills).map(([category, skillsList]) => (
-                <div key={category} className="flex gap-2">
-                  <span className="font-semibold text-gray-800 min-w-[150px]">
-                    {category}:
-                  </span>
-                  <span className="text-gray-700 flex-1">
-                    {skillsList.join(' • ')}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Professional Experience */}
-        {experiences.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Professional Experience
-            </h2>
-            <div className="space-y-4">
-              {experiences.map((exp) => (
-                <div key={exp.id}>
-                  <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {exp.position}
-                    </h3>
-                    <span className="text-sm text-gray-600 font-medium">
-                      {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-baseline mb-2">
-                    <div className="text-lg font-semibold text-blue-600">
-                      {exp.company}
+        <div className="space-y-4">
+          {/* Education Section */}
+          {education.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Education
+              </h2>
+              <div className="space-y-3">
+                {education.map((edu) => (
+                  <div key={edu.id}>
+                    <div className="flex justify-between items-baseline">
+                      <div className="font-bold">{edu.institution}</div>
+                      <div className="text-sm">{edu.location}</div>
                     </div>
-                    <div className="text-sm text-gray-600">
-                      {exp.location}
+                    <div className="flex justify-between items-baseline text-sm">
+                      <div className="italic">
+                        {edu.degree}{edu.field && ` in ${edu.field}`}
+                      </div>
+                      <div className="italic">
+                        {formatDate(edu.startDate)} -- {edu.current ? 'Present' : formatDate(edu.endDate)}
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-gray-700 whitespace-pre-line leading-relaxed">
-                    {exp.description}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Projects */}
-        {projects.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Key Projects
-            </h2>
-            <div className="space-y-3">
-              {projects.map((project) => (
-                <div key={project.id}>
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {project.name}
-                    </h3>
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        className="text-sm text-blue-600 hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View Project →
-                      </a>
+                    {edu.gpa && (
+                      <div className="text-sm italic">CGPA: {edu.gpa}</div>
                     )}
                   </div>
-                  <div className="text-sm text-gray-600 mb-1">
-                    <span className="font-medium">Technologies:</span> {project.technologies}
-                  </div>
-                  <p className="text-gray-700 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Education */}
-        {education.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Education
-            </h2>
-            <div className="space-y-3">
-              {education.map((edu) => (
-                <div key={edu.id}>
-                  <div className="flex justify-between items-baseline">
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {edu.degree}{edu.field && ` in ${edu.field}`}
-                    </h3>
-                    <span className="text-sm text-gray-600 font-medium">
-                      {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-baseline">
-                    <div className="text-base font-semibold text-blue-600">
-                      {edu.institution}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {edu.gpa && `GPA: ${edu.gpa}`}
-                    </div>
-                  </div>
-                  {edu.location && (
-                    <div className="text-sm text-gray-600">{edu.location}</div>
-                  )}
-                </div>
-              ))}
+          {/* Professional Summary */}
+          {personalInfo.summary && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Professional Summary
+              </h2>
+              <p className="text-sm leading-relaxed">
+                {personalInfo.summary}
+              </p>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Certifications */}
-        {certifications.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Certifications
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {certifications.map((cert) => (
-                <div key={cert.id} className="border-l-4 border-blue-500 pl-3">
-                  <div className="font-bold text-gray-900">{cert.name}</div>
-                  <div className="text-sm text-gray-700">{cert.issuer}</div>
-                  <div className="text-sm text-gray-600">
-                    {formatDate(cert.date)}
-                    {cert.credentialId && ` • ID: ${cert.credentialId}`}
-                  </div>
-                  {cert.link && (
-                    <a
-                      href={cert.link}
-                      className="text-xs text-blue-600 hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Verify Credential →
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Awards & Achievements */}
-        {awards.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Awards & Achievements
-            </h2>
-            <div className="space-y-2">
-              {awards.map((award) => (
-                <div key={award.id} className="flex gap-3">
-                  <div className="text-blue-600 text-xl">🏆</div>
-                  <div className="flex-1">
+          {/* Professional Experience */}
+          {experiences.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Experience
+              </h2>
+              <div className="space-y-3">
+                {experiences.map((exp) => (
+                  <div key={exp.id}>
                     <div className="flex justify-between items-baseline">
-                      <span className="font-bold text-gray-900">{award.title}</span>
-                      <span className="text-sm text-gray-600">{formatDate(award.date)}</span>
+                      <div className="font-bold">{exp.company}</div>
+                      <div className="text-sm">{exp.location}</div>
                     </div>
-                    <div className="text-sm text-gray-700">{award.issuer}</div>
-                    <div className="text-sm text-gray-600">{award.description}</div>
+                    <div className="flex justify-between items-baseline text-sm mb-1">
+                      <div className="italic">{exp.position}</div>
+                      <div className="italic">
+                        {formatDate(exp.startDate)} -- {exp.current ? 'Present' : formatDate(exp.endDate)}
+                      </div>
+                    </div>
+                    <div className="text-sm space-y-1">
+                      {exp.description.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <span>•</span>
+                          <span className="flex-1">{line.trim().replace(/^[•\-]\s*/, '')}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Languages */}
-        {languages.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-blue-700 mb-3 pb-2 border-b-2 border-blue-200">
-              Languages
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {languages.map((lang) => (
-                <div key={lang.id} className="text-center p-2 bg-blue-50 rounded-lg">
-                  <div className="font-semibold text-gray-900">{lang.name}</div>
-                  <div className="text-sm text-gray-600">{lang.proficiency}</div>
-                </div>
-              ))}
+          {/* Projects */}
+          {projects.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Projects
+              </h2>
+              <div className="space-y-3">
+                {projects.map((project) => (
+                  <div key={project.id}>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <div>
+                        <span className="font-bold">{project.name}</span>
+                        {project.technologies && (
+                          <span className="text-sm italic"> | {project.technologies}</span>
+                        )}
+                      </div>
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          className="text-sm hover:underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Link
+                        </a>
+                      )}
+                    </div>
+                    <div className="text-sm space-y-1">
+                      {project.description.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <span>•</span>
+                          <span className="flex-1">{line.trim().replace(/^[•\-]\s*/, '')}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Technical Skills */}
+          {skills.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Technical Skills
+              </h2>
+              <div className="space-y-1">
+                {Object.entries(groupedSkills).map(([category, skillsList]) => (
+                  <div key={category} className="text-sm">
+                    <span className="font-bold">{category}</span>: {skillsList.join(', ')}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Certifications */}
+          {certifications.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Certifications
+              </h2>
+              <div className="space-y-2">
+                {certifications.map((cert) => (
+                  <div key={cert.id} className="text-sm">
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-bold">{cert.name}</span>
+                      <span className="italic">{formatDate(cert.date)}</span>
+                    </div>
+                    <div className="italic">{cert.issuer}</div>
+                    {cert.credentialId && (
+                      <div className="text-xs">Credential ID: {cert.credentialId}</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Awards & Achievements */}
+          {awards.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Achievements
+              </h2>
+              <div className="space-y-1">
+                {awards.map((award) => (
+                  <div key={award.id} className="flex gap-2 text-sm">
+                    <span>•</span>
+                    <div className="flex-1">
+                      <span className="font-bold">{award.title}</span> - {award.issuer} ({formatDate(award.date)})
+                      {award.description && <div className="mt-0.5">{award.description}</div>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Languages */}
+          {languages.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Languages
+              </h2>
+              <div className="text-sm">
+                {languages.map((lang, idx) => (
+                  <span key={lang.id}>
+                    {lang.name} ({lang.proficiency}){idx < languages.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
