@@ -25,120 +25,138 @@ export default function CVPreview({ data }: CVPreviewProps) {
   }, {} as Record<string, string[]>);
 
   return (
-    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto professional-cv" id="cv-preview">
-      <div className="p-12">
-        {/* Header Section - Simple and Clean */}
-        <div className="text-center pb-6 mb-6 border-b-2 border-gray-900">
-          {personalInfo.logo && (
-            <img
-              src={personalInfo.logo}
-              alt="Profile"
-              className="w-24 h-24 mx-auto mb-4 object-cover"
-            />
-          )}
-
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {personalInfo.fullName || 'Your Name'}
-          </h1>
-
-          {(personalInfo.program || personalInfo.institute) && (
-            <div className="text-lg text-gray-700 mb-3">
-              {personalInfo.program}
-              {personalInfo.program && personalInfo.institute && ' | '}
-              {personalInfo.institute}
-            </div>
-          )}
-
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-gray-600">
-            {personalInfo.email && <div>{personalInfo.email}</div>}
-            {personalInfo.phone && <div>•</div>}
-            {personalInfo.phone && <div>{personalInfo.phone}</div>}
-            {personalInfo.location && <div>•</div>}
-            {personalInfo.location && <div>{personalInfo.location}</div>}
+    <div className="bg-white shadow-lg max-w-[8.5in] mx-auto latex-cv" id="cv-preview">
+      <div className="px-12 py-10">
+        {/* Three-Column Header - LaTeX Style */}
+        <div className="grid grid-cols-[auto_1fr_auto] gap-6 mb-4">
+          {/* Left: Logo */}
+          <div className="flex items-center">
+            {personalInfo.logo && (
+              <img
+                src={personalInfo.logo}
+                alt="Logo"
+                className="w-16 h-16 object-contain"
+              />
+            )}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-gray-600 mt-1">
-            {personalInfo.linkedin && (
-              <a href={personalInfo.linkedin} className="hover:underline">
-                LinkedIn
-              </a>
+          {/* Center: Name and Details */}
+          <div>
+            <h1 className="text-3xl font-bold mb-1">
+              {personalInfo.fullName?.toUpperCase() || 'YOUR NAME'}
+            </h1>
+            {personalInfo.program && (
+              <div className="text-sm mb-0.5">{personalInfo.program}</div>
             )}
-            {personalInfo.github && personalInfo.linkedin && <div>•</div>}
+            {personalInfo.institute && (
+              <div className="text-sm mb-0.5">{personalInfo.institute}</div>
+            )}
+            {personalInfo.location && (
+              <div className="text-sm">{personalInfo.location}</div>
+            )}
+          </div>
+
+          {/* Right: Contact Info with Icons */}
+          <div className="text-right text-sm space-y-0.5 flex flex-col justify-center">
+            {personalInfo.phone && (
+              <div>☎ {personalInfo.phone}</div>
+            )}
+            {personalInfo.email && (
+              <div>
+                ✉ <a href={`mailto:${personalInfo.email}`} className="hover:underline">
+                  {personalInfo.email}
+                </a>
+              </div>
+            )}
             {personalInfo.github && (
-              <a href={personalInfo.github} className="hover:underline">
-                GitHub
-              </a>
+              <div>
+                ⚙ <a href={personalInfo.github} className="hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.github.replace('https://github.com/', '')}
+                </a>
+              </div>
             )}
-            {personalInfo.website && (personalInfo.linkedin || personalInfo.github) && <div>•</div>}
-            {personalInfo.website && (
-              <a href={personalInfo.website} className="hover:underline">
-                Website
-              </a>
+            {personalInfo.linkedin && (
+              <div>
+                in <a href={personalInfo.linkedin} className="hover:underline" target="_blank" rel="noopener noreferrer">
+                  {personalInfo.linkedin.replace('https://linkedin.com/in/', '').replace('https://www.linkedin.com/in/', '')}
+                </a>
+              </div>
             )}
           </div>
         </div>
 
-        <div className="space-y-6">
-          {/* Professional Summary */}
-          {personalInfo.summary && (
-            <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Professional Summary
-              </h2>
-              <p className="text-gray-700 leading-relaxed text-sm">
-                {personalInfo.summary}
-              </p>
-            </div>
-          )}
+        {/* Divider line after header */}
+        <div className="border-t border-black my-3"></div>
 
-          {/* Core Competencies / Skills */}
-          {skills.length > 0 && (
+        <div className="space-y-4">
+          {/* Education Section */}
+          {education.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Core Competencies
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Education
               </h2>
-              <div className="space-y-1.5">
-                {Object.entries(groupedSkills).map(([category, skillsList]) => (
-                  <div key={category} className="flex gap-2 text-sm">
-                    <span className="font-semibold text-gray-900 min-w-[140px]">
-                      {category}:
-                    </span>
-                    <span className="text-gray-700 flex-1">
-                      {skillsList.join(', ')}
-                    </span>
+              <div className="space-y-3">
+                {education.map((edu) => (
+                  <div key={edu.id}>
+                    <div className="flex justify-between items-baseline">
+                      <div className="font-bold">{edu.institution}</div>
+                      <div className="text-sm">{edu.location}</div>
+                    </div>
+                    <div className="flex justify-between items-baseline text-sm">
+                      <div className="italic">
+                        {edu.degree}{edu.field && ` in ${edu.field}`}
+                      </div>
+                      <div className="italic">
+                        {formatDate(edu.startDate)} -- {edu.current ? 'Present' : formatDate(edu.endDate)}
+                      </div>
+                    </div>
+                    {edu.gpa && (
+                      <div className="text-sm italic">CGPA: {edu.gpa}</div>
+                    )}
                   </div>
                 ))}
               </div>
             </div>
           )}
 
+          {/* Professional Summary */}
+          {personalInfo.summary && (
+            <div>
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Professional Summary
+              </h2>
+              <p className="text-sm leading-relaxed">
+                {personalInfo.summary}
+              </p>
+            </div>
+          )}
+
           {/* Professional Experience */}
           {experiences.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Professional Experience
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Experience
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {experiences.map((exp) => (
                   <div key={exp.id}>
-                    <div className="flex justify-between items-baseline mb-0.5">
-                      <h3 className="text-base font-bold text-gray-900">
-                        {exp.position}
-                      </h3>
-                      <span className="text-sm text-gray-600">
-                        {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
-                      </span>
+                    <div className="flex justify-between items-baseline">
+                      <div className="font-bold">{exp.company}</div>
+                      <div className="text-sm">{exp.location}</div>
                     </div>
-                    <div className="flex justify-between items-baseline mb-1.5">
-                      <div className="text-sm font-semibold text-gray-700">
-                        {exp.company}
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        {exp.location}
+                    <div className="flex justify-between items-baseline text-sm mb-1">
+                      <div className="italic">{exp.position}</div>
+                      <div className="italic">
+                        {formatDate(exp.startDate)} -- {exp.current ? 'Present' : formatDate(exp.endDate)}
                       </div>
                     </div>
-                    <div className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
-                      {exp.description}
+                    <div className="text-sm space-y-1">
+                      {exp.description.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <span>•</span>
+                          <span className="flex-1">{line.trim().replace(/^[•\-]\s*/, '')}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -149,67 +167,54 @@ export default function CVPreview({ data }: CVPreviewProps) {
           {/* Projects */}
           {projects.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Key Projects
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Projects
               </h2>
               <div className="space-y-3">
                 {projects.map((project) => (
                   <div key={project.id}>
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="text-base font-bold text-gray-900">
-                        {project.name}
-                      </h3>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <div>
+                        <span className="font-bold">{project.name}</span>
+                        {project.technologies && (
+                          <span className="text-sm italic"> | {project.technologies}</span>
+                        )}
+                      </div>
                       {project.link && (
                         <a
                           href={project.link}
-                          className="text-xs text-gray-600 hover:underline"
+                          className="text-sm hover:underline"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Link →
+                          Link
                         </a>
                       )}
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">
-                      <span className="font-medium">Technologies:</span> {project.technologies}
+                    <div className="text-sm space-y-1">
+                      {project.description.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <span>•</span>
+                          <span className="flex-1">{line.trim().replace(/^[•\-]\s*/, '')}</span>
+                        </div>
+                      ))}
                     </div>
-                    <p className="text-sm text-gray-700 leading-relaxed">
-                      {project.description}
-                    </p>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Education */}
-          {education.length > 0 && (
+          {/* Technical Skills */}
+          {skills.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Education
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Technical Skills
               </h2>
-              <div className="space-y-3">
-                {education.map((edu) => (
-                  <div key={edu.id}>
-                    <div className="flex justify-between items-baseline">
-                      <h3 className="text-base font-bold text-gray-900">
-                        {edu.degree}{edu.field && ` in ${edu.field}`}
-                      </h3>
-                      <span className="text-sm text-gray-600">
-                        {formatDate(edu.startDate)} - {edu.current ? 'Present' : formatDate(edu.endDate)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-baseline">
-                      <div className="text-sm font-semibold text-gray-700">
-                        {edu.institution}
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        {edu.gpa && `GPA: ${edu.gpa}`}
-                      </div>
-                    </div>
-                    {edu.location && (
-                      <div className="text-sm text-gray-600">{edu.location}</div>
-                    )}
+              <div className="space-y-1">
+                {Object.entries(groupedSkills).map(([category, skillsList]) => (
+                  <div key={category} className="text-sm">
+                    <span className="font-bold">{category}</span>: {skillsList.join(', ')}
                   </div>
                 ))}
               </div>
@@ -219,27 +224,19 @@ export default function CVPreview({ data }: CVPreviewProps) {
           {/* Certifications */}
           {certifications.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
                 Certifications
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="space-y-2">
                 {certifications.map((cert) => (
-                  <div key={cert.id}>
-                    <div className="font-bold text-sm text-gray-900">{cert.name}</div>
-                    <div className="text-xs text-gray-700">{cert.issuer}</div>
-                    <div className="text-xs text-gray-600">
-                      {formatDate(cert.date)}
-                      {cert.credentialId && ` • ID: ${cert.credentialId}`}
+                  <div key={cert.id} className="text-sm">
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-bold">{cert.name}</span>
+                      <span className="italic">{formatDate(cert.date)}</span>
                     </div>
-                    {cert.link && (
-                      <a
-                        href={cert.link}
-                        className="text-xs text-gray-600 hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Verify →
-                      </a>
+                    <div className="italic">{cert.issuer}</div>
+                    {cert.credentialId && (
+                      <div className="text-xs">Credential ID: {cert.credentialId}</div>
                     )}
                   </div>
                 ))}
@@ -250,18 +247,17 @@ export default function CVPreview({ data }: CVPreviewProps) {
           {/* Awards & Achievements */}
           {awards.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
-                Awards & Achievements
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
+                Achievements
               </h2>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {awards.map((award) => (
-                  <div key={award.id}>
-                    <div className="flex justify-between items-baseline">
-                      <span className="font-bold text-sm text-gray-900">{award.title}</span>
-                      <span className="text-xs text-gray-600">{formatDate(award.date)}</span>
+                  <div key={award.id} className="flex gap-2 text-sm">
+                    <span>•</span>
+                    <div className="flex-1">
+                      <span className="font-bold">{award.title}</span> - {award.issuer} ({formatDate(award.date)})
+                      {award.description && <div className="mt-0.5">{award.description}</div>}
                     </div>
-                    <div className="text-xs text-gray-700">{award.issuer}</div>
-                    <div className="text-xs text-gray-600">{award.description}</div>
                   </div>
                 ))}
               </div>
@@ -271,15 +267,14 @@ export default function CVPreview({ data }: CVPreviewProps) {
           {/* Languages */}
           {languages.length > 0 && (
             <div>
-              <h2 className="text-lg font-bold text-gray-900 mb-2 pb-1 border-b border-gray-300 uppercase tracking-wide">
+              <h2 className="text-base font-bold uppercase mb-2 border-b border-black pb-0.5">
                 Languages
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {languages.map((lang) => (
-                  <div key={lang.id} className="text-sm">
-                    <span className="font-semibold text-gray-900">{lang.name}</span>
-                    <span className="text-gray-600"> - {lang.proficiency}</span>
-                  </div>
+              <div className="text-sm">
+                {languages.map((lang, idx) => (
+                  <span key={lang.id}>
+                    {lang.name} ({lang.proficiency}){idx < languages.length - 1 ? ', ' : ''}
+                  </span>
                 ))}
               </div>
             </div>
