@@ -1,4 +1,4 @@
-# CV Maker
+<h1 align="center">CV Maker</h1>
 
 A professional CV/Resume builder with a LaTeX-inspired design, built with Next.js, TypeScript, and Tailwind CSS.
 
